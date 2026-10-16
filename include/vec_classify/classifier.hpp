@@ -15,7 +15,6 @@ struct ClassifierConfig {
     std::size_t n_probe{8};
     float temperature{5.0f};      // \tau en el kernel Gaussiano de votación
     float class_prior_alpha{0.6f}; // Exponente \alpha para compensar desbalance (\pi_c^{-\alpha})
-    float sentinel_threshold{5000.0f}; // Umbral absoluto para descartar valores centinela corruptos (ej. -9999.0)
     bool use_ivf{true};
 };
 

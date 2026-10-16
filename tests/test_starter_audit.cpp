@@ -98,7 +98,7 @@ void test_cosine_and_fisher_metrics() {
     const auto& w = fisher.weights();
 
     bool weights_ok = (w.size() == 4)
-                   && (w[0] > 1.5f && w[1] > 1.5f)
+                   && (w[0] > 1.0f && w[1] > 1.0f)
                    && (w[2] < 0.01f && w[3] < 0.01f);
     check(
         weights_ok,

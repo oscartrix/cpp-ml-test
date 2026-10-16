@@ -3,7 +3,7 @@
 #   1. test_suite en Release
 #   2. test_suite bajo AddressSanitizer + UndefinedBehaviorSanitizer
 #   3. benchmark_cli en Release (sale con código != 0 si no cumple los umbrales)
-# Uso (desde la raíz de candidate_starter): ./scripts/run_acceptance.sh
+# Uso (desde la raíz del repositorio): ./scripts/run_acceptance.sh
 set -euo pipefail
 
 cd "$(dirname "$0")/.."

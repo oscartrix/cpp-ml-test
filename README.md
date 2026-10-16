@@ -67,7 +67,7 @@ cmake --build . -j
 # Ejecutar suite de pruebas unitarias y auditoría de memoria
 ./test_suite
 
-# Ejecutar benchmark sobre el dataset (desde la raíz de candidate_starter)
+# Ejecutar benchmark sobre el dataset (desde la raíz del repositorio)
 cd ..
 ./build/benchmark_cli data/train.csv data/test.csv
 ```
@@ -99,6 +99,6 @@ Para verificar todos los criterios automáticos de una vez (Release + ASan/UBSan
 
 1. Pulsa **"Use this template" → "Create a new repository"** en GitHub y crea el repositorio como **privado**. No hagas *fork*: un fork de un repositorio público es siempre público.
 2. Trabaja en tu repositorio y sube tu solución junto con `REPORT.md`.
-3. En **Settings → Collaborators**, invita como colaborador a `<USUARIO_REVISOR>` antes de la fecha límite.
+3. En **Settings → Collaborators**, invita como colaborador a `oscartrix` antes de la fecha límite.
 
 Si no puedes usar GitHub, envía un `git bundle` (`git bundle create entrega.bundle --all`) o un `.zip` del repositorio **sin** las carpetas `build*/`.
