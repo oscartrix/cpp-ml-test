@@ -28,13 +28,19 @@ Un prototipo previo (`FlatIndex` con distancia Euclídea simple y votación mayo
 ### Etapa 2: Limpieza de Datos y Métrica Supervisada (`FisherWeightedL2Metric`)
 1. Implementa `AdaptiveKNNClassifier::is_valid_row` en `src/classifier.cpp` para descartar filas de entrenamiento con lecturas corruptas (`NaN`, `Inf` o valores centinela de desconexión de sensor como `-9999.0`).
 2. Implementa `CosineMetric::compute` y `FisherWeightedL2Metric::fit_weights` / `compute` en `src/distance.cpp`.
-   Para cada dimensión $j \in \{0, \dots, D-1\}$, el puntaje de relevancia de Fisher se define como la razón entre la varianza inter-clase y la varianza intra-clase regularizada sobre las $N_{\text{valid}}$ muestras válidas:
+   Para cada dimensión $j \in \lbrace 0, \dots, D-1 \rbrace$, el puntaje de relevancia de Fisher se define como la razón entre la varianza inter-clase y la varianza intra-clase regularizada sobre las $N_{\text{valid}}$ muestras válidas:
 
-   $$\text{num}_j = \sum_{c=0}^{C-1} \frac{N_c}{N_{\text{valid}}} (\mu_{c,j} - \mu_j)^2$$
+   ```math
+   \text{num}_j = \sum_{c=0}^{C-1} \frac{N_c}{N_{\text{valid}}} (\mu_{c,j} - \mu_j)^2
+   ```
 
-   $$\text{den}_j = \frac{1}{N_{\text{valid}}} \sum_{c=0}^{C-1} \sum_{i \in c} (x_{i,j} - \mu_{c,j})^2 + \gamma$$
+   ```math
+   \text{den}_j = \frac{1}{N_{\text{valid}}} \sum_{c=0}^{C-1} \sum_{i \in c} (x_{i,j} - \mu_{c,j})^2 + \gamma
+   ```
 
-   $$s_j = \frac{\text{num}_j}{\text{den}_j}, \qquad w_j = D \cdot \frac{s_j}{\sum_{l=0}^{D-1} s_l + 10^{-12}}$$
+   ```math
+   s_j = \frac{\text{num}_j}{\text{den}_j}, \qquad w_j = D \cdot \frac{s_j}{\sum_{l=0}^{D-1} s_l + 10^{-12}}
+   ```
 
 ### Etapa 3: Índice de Archivo Invertido (`IVFIndex`) con $k$-Means++
 Implementa `IVFIndex::build` e `IVFIndex::search` en `src/index.cpp`:
@@ -49,7 +55,9 @@ Implementa `IVFIndex::build` e `IVFIndex::search` en `src/index.cpp`:
 ### Etapa 4: Clasificador $k$-NN Ponderado y Reporte Técnico
 1. Implementa la regla de votación en `AdaptiveKNNClassifier::predict_one` (`src/classifier.cpp`) combinando un kernel Gaussiano de distancia y compensación por prior empírico de clase $\pi_c = N_c / N_{\text{valid}}$:
 
-   $$\text{Score}(c \mid \mathbf{q}) = (\pi_c)^{-\alpha} \sum_{i \in \mathcal{N}_k(\mathbf{q}),\, y_i = c} \exp\left(-\frac{d_{\mathbf{w}}(\mathbf{q}, \mathbf{x}_i)}{2\tau^2}\right)$$
+   ```math
+   \text{Score}(c \mid \mathbf{q}) = (\pi_c)^{-\alpha} \sum_{i \in \mathcal{N}_k(\mathbf{q}),\, y_i = c} \exp\left(-\frac{d_{\mathbf{w}}(\mathbf{q}, \mathbf{x}_i)}{2\tau^2}\right)
+   ```
 
    Usa los valores por defecto de `ClassifierConfig` ($\tau = 5.0$, $\alpha = 0.6$, $k = 11$).
 
