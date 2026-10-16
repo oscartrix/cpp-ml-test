@@ -1,0 +1,9 @@
+# Builds de CMake
+build/
+build_*/
+cmake-build-*/
+
+# IDE / SO
+.DS_Store
+.vscode/
+.idea/
